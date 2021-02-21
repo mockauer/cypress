@@ -4,6 +4,7 @@
 describe('Our first suite', () => {
 
     it('First test', () => {
+        //URL aufrufen und hinnvavigieren
         cy.visit('/')
         cy.contains('Forms').click()
         cy.contains('Form Layouts').click()
