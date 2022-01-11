@@ -77,11 +77,12 @@ describe('Our first suite', () => {
 
       //wir wollen doppeltes sparen
       //then erste folgende ist der Parameter der Function --> könnte auch then(function(firstForm) { ... } sein)
+      // mit then wird es JS Object nicht mehr ein Cypress Object
       cy.contains('nb-card', 'Using the Grid').then( firstForm => {
         /*console.log(firstForm)
         console.log(firstForm.text())
         console.log(firstForm.find('[for="inputEmail1"]'))*/
-          const emailLabelFirst = firstForm.find('[for="inputEmail1"]').text()
+          const  emailLabelFirst = firstForm.find('[for="inputEmail1"]').text()
           const passwordLabelFirst = firstForm.find('[for="inputPassword2"]').text()
 
           expect(emailLabelFirst).to.equal('Email')
@@ -90,14 +91,16 @@ describe('Our first suite', () => {
           //auf Variablen zugreifen geht nur innerhalb der Function
           cy.contains('nb-card','Basic form').then( secondForm => {
             const passwordLabelSecond = secondForm.find('[for="exampleInputPassword1"]').text()
+            const emailLabelSecond = secondForm.find('[for="exampleInputEmail1"]').text()
             expect(passwordLabelFirst).to.equal(passwordLabelSecond)
+            expect(emailLabelSecond).to.equal('Email address')
 
             //wenn ich JQuery Objekt zum Cypressobjekt machen will, brauche ich wrap
             cy.wrap(secondForm).find('[for="exampleInputPassword1"]').should('contain', 'Password')
           })
       })
       //cy.log(firstForm)
-
+      cy.log("Außerhalb")
       cy.contains('nb-card','Basic form').find('[for="exampleInputEmail1"]').should('contain', 'Email address')
       cy.contains('nb-card','Basic form').find('[for="exampleInputPassword1"]').should('contain', 'Password')
 
