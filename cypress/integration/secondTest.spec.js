@@ -111,15 +111,16 @@ describe('Our first suite', () => {
       cy.contains('Forms').click()
       cy.contains('Form Layouts').click()
 
-      //1
+      //1 Basic
       cy.get('[for="exampleInputEmail1"]').should('contain', "Email address")
 
-      //2
+      //2 Wiederholung von then
       cy.get('[for="exampleInputEmail1"]').then( label => {
         expect(label.text()).to.equal('Email address')
       })
 
-      //3
+      //3 with invoke
+      //invoke = function in an array of functions
       cy.get('[for="exampleInputEmail1"]').invoke('text').then( text => {
         expect(text).to.equal('Email address')
       })
@@ -129,11 +130,11 @@ describe('Our first suite', () => {
       //zweite Zeile invoke
       cy.contains('nb-card', 'Basic form').find('nb-checkbox').click()
       .find('.custom-checkbox').invoke('attr','class')
-      //.should('contain', 'checked') //erste Möglichkeit
+      .should('contain', 'checked') //erste Möglichkeit
       //zweite Möglichkeit, mit then
-      .then( classValue => {
-        expect(classValue).to.contain('checked')
-      })
+      // .then( classValue => {
+        // expect(classValue).to.contain('checked')
+      // })
  })
 
       //5 Invoke beim Datepicker
@@ -143,8 +144,11 @@ describe('Our first suite', () => {
         cy.contains('Datepicker').click()
 
         cy.contains('nb-card', 'Common Datepicker').find('input').then( input => {
+          //müsste dymnamisch gemacht, da der aktuelle monat und jahr ausgewählt is
+          //wrap ist javascript, damit kann man aus Browser alles nutzen
           cy.wrap(input).click()
           cy.get('nb-calendar-day-picker').contains('17').click()
+          //pro für property von den webentwickler tools
           cy.wrap(input).invoke('prop', 'value').should('contain', 'Mar 17, 2021')
 
 
@@ -158,6 +162,8 @@ describe('Our first suite', () => {
       cy.contains('Forms').click()
       cy.contains('Form Layouts').click()
 
+
+      //bis find findet es drei, mit then kann man es unterteilen
       cy.contains('nb-card', 'Using the Grid').find('[type="radio"]').then( radioButtons => {
         //JS Object, deshalb Wrap
         //cy.wrap(radioButtons).first().check() // wirft so Fehler, weil die CSS Klasse hidden ist für DOM
