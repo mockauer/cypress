@@ -82,7 +82,8 @@ describe('Our second suite', () => {
 
 
 
-    it.only('Datepicker dynmaic', () => {
+    it('Datepicker dynmaic', () => {
+        // use dateobject from JS
         function selectDayFromCurrent(day){
                //erzeugen von JS
         let date = new Date()
@@ -156,5 +157,49 @@ describe('Our second suite', () => {
             cy.wrap(input).invoke('prop', 'value').should('contain', dateAssert)
 
         })
+    })
+
+    it('Popup and Tooltips', () => {
+        cy.visit("/")
+        cy.contains("Modal & Overlays").click()
+        cy.contains("Tooltip").click()
+        //es gibt kein Hover von Cypress, also muss es anders angegangen werden
+
+
+        cy.contains("nb-card", "Colored Tooltips").contains("Default").click()
+        cy.get('nb-tooltip').should('contain', "This is a tooltip")
+
+
+
+    })
+
+    it('Browser Dialog', () => {
+        cy.visit("/")
+        cy.contains('Tables & Data').click()
+        cy.contains('Smart Table').click()
+
+
+        // cy.get('tbody tr').first().find('.nb-trash').click()
+        // //Wie bekomme ich auf das Dialgofenster einen Zugriff?
+        // //mehrere Möglichkeiten
+        // //1 nicht die Beste, weil man wirklich wissen muss, ob es ein confirm Dialog ist und keine bspw. alert Dialogbox
+        // cy.on('window:confirm', (confirm) => {
+        //     expect(confirm).to.equal('Are you sure you want to delete?')
+        // })
+
+        // //2 more komplizierrt, aber sicherer
+        // const stub = cy.stub()
+        // cy.on('window:confirm', stub)
+        // cy.get('tbody tr').first().find('.nb-trash').click().then (() => {
+        //     expect(stub.getCall(0)).to.be.calledWith('Are you sure you want to delete?')
+        // })
+
+        //3 Mischmasch aus 1 und 2, es wird nichr bestätigt
+        cy.get('tbody tr').first().find('.nb-trash').click()
+        cy.on('window:confirm', () => false)
+    })
+
+    it.only('Assertions', () => {
+        cy.visit("/")
     })
 })
