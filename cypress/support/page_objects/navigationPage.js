@@ -1,5 +1,5 @@
 function setGroupMenuItem(groupName) {
-    //Form kann man noch parametrisieren, in dem man es übergibt
+    //Form kann man noch parametrisieren "groupName", in dem man es übergibt
     // cy.contains('a', 'Form').then(menu => {
     cy.contains('a', groupName).then(menu => {
         // console.log(menu)
@@ -49,8 +49,20 @@ export class NavigationPage {
         cy.contains('Datepicker').click()
     }
 
+
+    toasterPage() {
+        setGroupMenuItem('Modal & Overlays')
+        cy.contains('Toastr').click()
+    }
+
+    smartTablePage() {
+        setGroupMenuItem('Tables & Data')      
+        cy.contains('Smart Table').click()
+    }
+
     //das kann man mit allen Öffnungen der Seite machen
 
 }
 
+//wird exportiert, um es dann sprechend in der Klasse aufzunehmen
 export const navigateTo = new NavigationPage();
