@@ -23,3 +23,14 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add("login", () => {
+    cy.visit("/")
+})
+
+Cypress.Commands.add('open', () => {
+    cy.visit("/")
+})
+
+Cypress.Commands.add('SLFunction', (logText) => {
+    cy.log(logText)
+})

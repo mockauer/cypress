@@ -43,7 +43,8 @@ describe('Our first suite', () => {
     })
 
     it.only('Test mit Commands', () => {
-        cy.login('TEST', '2. test')
+        cy.open()
+        cy.SLFunction('TEST')
     })
 
 })
