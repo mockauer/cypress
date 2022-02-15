@@ -42,4 +42,8 @@ describe('Our first suite', () => {
         cy.get('[data-cy="imputEmail1"]')
     })
 
+    it.only('Test mit Commands', () => {
+        cy.SLFunction('TEST')
+    })
+
 })
