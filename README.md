@@ -6,3 +6,5 @@
 - im zweiten Terminal
 - Navigation nach ~/dev/current_cypress/cypress$
 - mittel npx cypress open > Cypress starten
+
+- Neue Umgebung für JSON: cd ~/dev/gitRepo/angular-realworld-example-app/ -> npm start
