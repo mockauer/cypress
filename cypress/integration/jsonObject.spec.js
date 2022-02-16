@@ -3,6 +3,11 @@
 
 describe('JSON Object', () => {
 
+  beforeEach('login to app', () => {
+    cy.login()
+  })
+
+  //Einführung in JSON
     it('First test', () => {
       cy.visit("/")
 
@@ -43,5 +48,9 @@ describe('JSON Object', () => {
 
     }
     )
+
+    it.only('Success Login', () => {
+      cy.log('YES WE CAN')
+    })
 }
 )
