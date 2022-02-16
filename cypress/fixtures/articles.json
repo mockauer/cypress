@@ -1,0 +1,39 @@
+{
+	"articles": [
+		{
+			"slug": "This-is-a-title22-1850",
+			"title": "This is a title22",
+			"description": "This is a description",
+			"body": "This is a body of the Article",
+			"createdAt": "2022-02-16T13:15:38.830Z",
+			"updatedAt": "2022-02-16T13:15:38.830Z",
+			"tagList": [],
+			"author": {
+				"username": "artem",
+				"bio": null,
+				"image": "https://api.realworld.io/images/smiley-cyrus.jpeg",
+				"following": false
+			},
+			"favoritesCount": 10,
+			"favorited": false
+		},
+		{
+			"slug": "Article-SL-Cypress-1850",
+			"title": "Article SL Cypress",
+			"description": "Article SL Cypress",
+			"body": "Article SL Cypress",
+			"createdAt": "2022-02-16T11:39:24.441Z",
+			"updatedAt": "2022-02-16T11:39:24.441Z",
+			"tagList": [],
+			"author": {
+				"username": "artem",
+				"bio": null,
+				"image": "https://api.realworld.io/images/smiley-cyrus.jpeg",
+				"following": false
+			},
+			"favoritesCount": 6,
+			"favorited": true
+		}
+	],
+	"articlesCount": 316
+}

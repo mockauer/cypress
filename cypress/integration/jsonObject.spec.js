@@ -4,6 +4,9 @@
 describe('JSON Object', () => {
 
   beforeEach('login to app', () => {
+    // cy.intercept('GET', '**/tags', )
+    cy.intercept('GET', '**/tags',  { fixture: 'tags.json' })
+    // cy.server()
     cy.login()
   })
 
@@ -49,7 +52,7 @@ describe('JSON Object', () => {
     }
     )
 
-    it.only('verify correct request and response', () => {
+    it('verify correct request and response', () => {
 
       cy.server()
       //as als alias für Zwischenspeicherung
@@ -81,6 +84,40 @@ describe('JSON Object', () => {
       })
 
 
+    })
+
+
+    it('Tags', () => {
+      //in fixture ordner das JSON File hinterlegen => neue Tags hinzugefügt
+      //im video ist es noch cy.server and cy.route > ich mache das neue intercept und probiere es damit mal aus
+      //das muss vor dem test stattfinden, deswegen im beforeEach
+      cy.get('.tag-list').should('contain', 'cypress').and('contain','automation').and('contain','testing')
+    })    
+
+
+    it.only('verify global feed likes count', () => {
+      //video ist wieder mit route
+      cy.intercept('GET', '**/articles/feed', '{"articles":[],"articlesCount":0}').as('feed')
+      cy.intercept('GET', '**/articles', {fixture: "articles.json"}).as('articles')
+      
+      // cy.route('GET', '**/articles/feed', '{"articles":[],"articlesCount":0}')
+      // cy.route('GET', '**/articles', 'fixture: articles.json')
+      cy.get('@articles').then( xhr => {
+        console.log("HIER")
+        console.log(xhr)
+      })   
+         cy.get('@feed').then( xhr => {
+        console.log("HIER")
+        console.log(xhr)
+      })
+
+      cy.contains('Global Feed').click()
+      cy.get('app-article-list button').then( listOfButtons => {
+        expect(listOfButtons[0]).to.contain('0')
+        expect(listOfButtons[1]).to.contain('1')
+      })
+
+      
     })
 }
 )
