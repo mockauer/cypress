@@ -6,7 +6,7 @@ describe('JSON Object', () => {
   beforeEach('login to app', () => {
     // cy.intercept('GET', '**/tags', )
     cy.intercept('GET', '**/tags',  { fixture: 'tags.json' })
-    // cy.server()
+    
     cy.login()
   })
 
@@ -96,25 +96,19 @@ describe('JSON Object', () => {
 
 
     it.only('verify global feed likes count', () => {
-      //video ist wieder mit route
-      cy.intercept('GET', '**/articles/feed', '{"articles":[],"articlesCount":0}').as('feed')
-      cy.intercept('GET', '**/articles', {fixture: "articles.json"}).as('articles')
+
       
-      // cy.route('GET', '**/articles/feed', '{"articles":[],"articlesCount":0}')
-      // cy.route('GET', '**/articles', 'fixture: articles.json')
-      cy.get('@articles').then( xhr => {
-        console.log("HIER")
-        console.log(xhr)
-      })   
-         cy.get('@feed').then( xhr => {
-        console.log("HIER")
-        console.log(xhr)
-      })
+
+      //video ist wieder mit route
+      cy.intercept('GET', '**/articles/feed*', '{ "articles":[],"articlesCount":10 }')
+      cy.intercept('GET', '**/articles*', { fixture: "articles.json" })
+      
+
 
       cy.contains('Global Feed').click()
       cy.get('app-article-list button').then( listOfButtons => {
-        expect(listOfButtons[0]).to.contain('0')
-        expect(listOfButtons[1]).to.contain('1')
+        expect(listOfButtons[0]).to.contain('10')
+        expect(listOfButtons[1]).to.contain('5')
       })
 
       

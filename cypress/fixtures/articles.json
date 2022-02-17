@@ -31,8 +31,8 @@
 				"image": "https://api.realworld.io/images/smiley-cyrus.jpeg",
 				"following": false
 			},
-			"favoritesCount": 6,
-			"favorited": true
+			"favoritesCount": 5,
+			"favorited": false
 		}
 	],
 	"articlesCount": 316
