@@ -1,0 +1,32 @@
+{
+    "article": {
+        "id": 33644,
+        "slug": "Article-SL-Cypress-1850",
+        "title": "Article SL Cypress",
+        "description": "Article SL Cypress",
+        "body": "Article SL Cypress",
+        "createdAt": "2022-02-16T11:39:24.441Z",
+        "updatedAt": "2022-02-16T11:39:24.441Z",
+        "authorId": 1850,
+        "tagList": [],
+        "author": {
+            "username": "artem",
+            "bio": null,
+            "image": "https://api.realworld.io/images/smiley-cyrus.jpeg",
+            "following": false
+        },
+        "favoritedBy": [
+            {
+                "id": 1850,
+                "email": "artem.bondar16@gmail.com",
+                "username": "artem",
+                "password": "$2a$10$mJK4NJx0k5FxEwkopUJ4ROu1jrPxoNPRjMlxB2PAN40Ge0twWrYQ.",
+                "image": "https://api.realworld.io/images/smiley-cyrus.jpeg",
+                "bio": null,
+                "demo": false
+            }
+        ],
+        "favorited": true,
+        "favoritesCount": 1
+    }
+}

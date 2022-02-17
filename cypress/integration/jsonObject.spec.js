@@ -111,6 +111,14 @@ describe('JSON Object', () => {
         expect(listOfButtons[1]).to.contain('5')
       })
 
+      cy.fixture('articles').then( file => {
+        const articleLink = file.articles[1].slug
+        cy.intercept('POST', '**/articles/'+articleLink+'/favorite', file)
+      })
+
+      cy.get('app-article-list button').eq(1).click()
+
+      cy.get('app-article-list button').eq(1).should('contain', '6')
       
     })
 }
