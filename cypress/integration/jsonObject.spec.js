@@ -5,7 +5,10 @@ describe('JSON Object', () => {
 
   beforeEach('login to app', () => {
     // cy.intercept('GET', '**/tags', )
-    cy.intercept('GET', '**/tags',  { fixture: 'tags.json' })
+    //"normales"
+    // cy.intercept('GET', '**/tags',  { fixture: 'tags.json' })
+    //kann refactort werden mit routerMatcher
+    cy.intercept( { method: 'GET', path:'tags' },  { fixture: 'tags.json' })
     
     cy.login()
   })
@@ -86,6 +89,47 @@ describe('JSON Object', () => {
 
     })
 
+    it.only('intercepting and modifiying request and response', () => {
+
+      //manipulation bzw. Modifiying der Response
+      // cy.intercept('POST', '**/articles', (req) => {
+      //   req.body.article.description = "2 - Article SL Cypress"
+      // } ).as('postArticles')
+      
+      //erste expect Zeile ist das erwartende Ergebnis, aber wir wollen inder 2 Zeile es ändern
+      cy.intercept('POST', '**/articles', (req) => {
+        req.reply( res => {
+          expect(res.body.article.description).to.equal('This is a description')
+          res.body.article.description = "2 - This is decription - 2"
+        })
+      } ).as('postArticles')
+
+      // cy.intercept('POST', '**/articles').as('postArticles')
+      
+
+
+      
+      cy.contains('New Article').click()
+      cy.get('[formcontrolname="title"]').type("Article SL Cypress")
+      cy.get('[formcontrolname="description"]').type("Article SL Cypress")
+      cy.get('[formcontrolname="body"]').type("Article SL Cypress")
+      cy.contains('Publish Article').click()
+
+      cy.wait('@postArticles')
+      cy.get('@postArticles').then( xhr => {
+        
+        console.log(xhr)
+        console.log("HIER:")
+        console.log(xhr.response.statusCode)
+        expect(xhr.response.statusCode).to.equal(307)
+        
+        expect(xhr.request.body.article.body).to.equal("Article SL Cypress")
+        expect(xhr.response.body.article.description).to.equal("2 - Article SL Cypress")
+      })
+
+
+    })
+
 
     it('Tags', () => {
       //in fixture ordner das JSON File hinterlegen => neue Tags hinzugefügt
@@ -95,12 +139,12 @@ describe('JSON Object', () => {
     })    
 
 
-    it.only('verify global feed likes count', () => {
+    it('verify global feed likes count', () => {
 
       
 
       //video ist wieder mit route
-      cy.intercept('GET', '**/articles/feed*', '{ "articles":[],"articlesCount":10 }')
+      cy.intercept('GET', '**/articles/feed*', { "articles":[],"articlesCount":10 })
       cy.intercept('GET', '**/articles*', { fixture: "articles.json" })
       
 
