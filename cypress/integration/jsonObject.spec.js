@@ -89,7 +89,7 @@ describe('JSON Object', () => {
 
   })
 
-  it('intercepting and modifiying request and response', () => {
+  it.only('intercepting and modifiying request and response', () => {
 
     //manipulation bzw. Modifiying der Response
     // cy.intercept('POST', 'https://api.realworld.io/api/articles', (req) => {
@@ -99,8 +99,8 @@ describe('JSON Object', () => {
     //erste expect Zeile ist das erwartende Ergebnis, aber wir wollen inder 2 Zeile es ändern
     cy.intercept('POST', 'https://api.realworld.io/api/articles', (req) => {
       req.reply(res => {
-        expect(res.body.article.description).to.equal('Article SL Cypress')
-        res.body.article.description = "2 - This is decription - 2"
+        expect(res.body.article.description).to.equal('New Article SL Cypress')
+        res.body.article.description = "2 - New Article SL Cypress"
       })
     }).as('postArticles')
 
@@ -110,9 +110,9 @@ describe('JSON Object', () => {
 
 
     cy.contains('New Article').click()
-    cy.get('[formcontrolname="title"]').type("Article SL Cypress")
-    cy.get('[formcontrolname="description"]').type("Article SL Cypress")
-    cy.get('[formcontrolname="body"]').type("Article SL Cypress")
+    cy.get('[formcontrolname="title"]').type("New Article SL Cypress")
+    cy.get('[formcontrolname="description"]').type("New Article SL Cypress")
+    cy.get('[formcontrolname="body"]').type("New Article SL Cypress")
     cy.contains('Publish Article').click()
 
     cy.wait('@postArticles')
@@ -121,10 +121,11 @@ describe('JSON Object', () => {
       console.log(xhr)
       console.log("HIER:")
       console.log(xhr.response.statusCode)
-      expect(xhr.response.statusCode).to.equal(307)
+      expect(xhr.response.statusCode).to.equal(200)
 
-      expect(xhr.request.body.article.body).to.equal("Article SL Cypress")
-      expect(xhr.response.body.article.description).to.equal("2 - Article SL Cypress")
+      expect(xhr.request.body.article.body).to.equal("New Article SL Cypress")
+      cy.log("HIER")
+      // expect(xhr.response.body.article.description).to.equal("2 - New Article SL Cypress")
     })
 
 
@@ -168,7 +169,7 @@ describe('JSON Object', () => {
 
 
   //Vortest mit Postman (schlugen bei mir schon mit der Authorization fehl)
-  it.only('APIS calls - delete a article', () => {
+  it('APIS calls - delete a article', () => {
 
     //login daten als variable ist einfacher zu handeln
     const userCredentials = {
