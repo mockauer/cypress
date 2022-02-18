@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "cypress:run": "npx cypress run --spec 'cypress/integration/fourthTest.spec.js'",
+    //e2e funktioniert nicht, da man das ng:serve und Pfade alles erstellen muss, aber theoretich funktioniert es
+    "cypress:e2e": "start-test start http-get://localhost:4200 cypress:run"
+  },
   "requires": true,
   "lockfileVersion": 1,
   "dependencies": {
@@ -1310,5 +1315,8 @@
         "fd-slicer": "~1.1.0"
       }
     }
+  },
+  "devDependencies": {
+    "start-server-and-test": "^1.14.0"
   }
 }
