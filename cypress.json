@@ -8,7 +8,10 @@
         "RETRIES": 2,
         "username": "artem.bondar16@gmail.com",
         "password": "CypressTest1",
-        "apiUrl":"https://conduit.productionready.io/"
-        }
+        "apiUrl": "https://conduit.productionready.io/"
+    },
+    "reporter": "cypress-multi-reporters",
+    "reporterOptions": {
+        "configFile": "reporter-config.json"
+    }
 }
-
