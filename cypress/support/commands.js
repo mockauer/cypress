@@ -35,14 +35,20 @@ Cypress.Commands.add("loginHeadless", () => {
 
         //login daten als variable ist einfacher zu handeln
         const userCredentials = {
-            "user": {
-              "email": "artem.bondar16@gmail.com",
-              "password": "CypressTest1"
+            //keine gute Praxis, dsa muss in ein Konfigfile > einzutragen in der cypress.json
+            // "user": {
+            //   "email": "artem.bondar16@gmail.com",
+            //   "password": "CypressTest1"
+            // }      
+             "user": {
+              "email": Cypress.env('username'),
+              "password": Cypress.env('password')
             }
           }
 
 
-          cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+          //url ist überall gleich, das kann man auch in eine globale Variable packen
+          cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)
       .its('body').then ( body => {
         const token = body.user.token;
         //token müssen wir in alias speichern, damit wir nicht jedes mal das token in dem Testfall neu erzeugen und speichern

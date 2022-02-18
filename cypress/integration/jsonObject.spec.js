@@ -193,13 +193,13 @@ describe('JSON Object', () => {
     }
 
     //request anfrage für den Token
-    cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+    cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)
       .its('body').then(body => {
         const token = body.user.token;
 
         //second Request for Adding
         cy.request({
-          url: 'https://conduit.productionready.io/api/articles/',
+          url: Cypress.env('apiUrl')+'/api/articles/',
           headers: { 'Authorization': 'Token ' + token },
           method: 'POST',
           body: bodyRequest
@@ -216,7 +216,7 @@ describe('JSON Object', () => {
 
         //schauen ob es wirklich gelöscht worden ist, über die API
         cy.request({
-          url: 'https://conduit.productionready.io/api/articles/?limit=10&offset=0',
+          url: Cypress.env('apiUrl')+'/api/articles/?limit=10&offset=0',
           headers: { 'Authorization': 'Token ' + token },
           method: 'GET'
         }).its('body').then(body => {
@@ -260,13 +260,13 @@ describe('JSON Object', () => {
 
     //request anfrage für den Token
     //können wir aufgrund des headless token sparen und refactoren
-    // cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+    // cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)
       // .its('body').then(body => {
         cy.get('@token').then( token => {
         
         //second Request for Adding
         cy.request({
-          url: 'https://conduit.productionready.io/api/articles/',
+          url: Cypress.env('apiUrl')+'/api/articles/',
           headers: { 'Authorization': 'Token ' + token },
           method: 'POST',
           body: bodyRequest
@@ -283,7 +283,7 @@ describe('JSON Object', () => {
 
         //schauen ob es wirklich gelöscht worden ist, über die API
         cy.request({
-          url: 'https://conduit.productionready.io/api/articles/?limit=10&offset=0',
+          url: Cypress.env('apiUrl')+'/api/articles/?limit=10&offset=0',
           headers: { 'Authorization': 'Token ' + token },
           method: 'GET'
         }).its('body').then(body => {
