@@ -10,7 +10,10 @@ describe('JSON Object', () => {
     //kann refactort werden mit routerMatcher
     cy.intercept({ method: 'GET', path: 'tags' }, { fixture: 'tags.json' })
 
-    cy.login()
+    //default login
+    // cy.login()
+    //login für headless
+    cy.loginHeadless()
   })
 
   //Einführung in JSON
@@ -89,7 +92,7 @@ describe('JSON Object', () => {
 
   })
 
-  it.only('intercepting and modifiying request and response', () => {
+  it('intercepting and modifiying request and response', () => {
 
     //manipulation bzw. Modifiying der Response
     // cy.intercept('POST', 'https://api.realworld.io/api/articles', (req) => {
@@ -231,5 +234,73 @@ describe('JSON Object', () => {
 
 
   })
+
+
+  //Vortest mit Postman (schlugen bei mir schon mit der Authorization fehl)
+  //wesentlich schneller
+  it.only('APIS calls - Headless authorization', () => {
+
+    //login daten als variable ist einfacher zu handeln
+    const userCredentials = {
+      "user": {
+        "email": "artem.bondar16@gmail.com",
+        "password": "CypressTest1"
+      }
+    }
+
+    //Body/Eintrags daten als variable ist einfacher zu handeln
+    const bodyRequest = {
+      "article": {
+        "tagList": [],
+        "title": "TEST API",
+        "description": "TEST API",
+        "body": "TEST API"
+      }
+    }
+
+    //request anfrage für den Token
+    //können wir aufgrund des headless token sparen und refactoren
+    // cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+      // .its('body').then(body => {
+        cy.get('@token').then( token => {
+        
+        //second Request for Adding
+        cy.request({
+          url: 'https://conduit.productionready.io/api/articles/',
+          headers: { 'Authorization': 'Token ' + token },
+          method: 'POST',
+          body: bodyRequest
+
+
+        }).then(response => {
+          expect(response.status).to.equal(200)
+        })
+
+        //händische löschen
+        cy.contains('Global Feed').click()
+        cy.get('.article-preview').first().click()
+        cy.get('.article-actions').contains('Delete Article').click()
+
+        //schauen ob es wirklich gelöscht worden ist, über die API
+        cy.request({
+          url: 'https://conduit.productionready.io/api/articles/?limit=10&offset=0',
+          headers: { 'Authorization': 'Token ' + token },
+          method: 'GET'
+        }).its('body').then(body => {
+          console.log(body)
+          //jetzt muss title nicht gleich dem ersten titel sein
+          expect(body.articles[0].title).not.to.equal('TEST API')
+        })
+
+        
+
+
+      })
+
+
+
+
+  })
+
 }
 )

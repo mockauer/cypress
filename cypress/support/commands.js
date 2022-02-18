@@ -30,6 +30,35 @@ Cypress.Commands.add("login", () => {
     cy.get('form').submit()
 })
 
+//headless authentifcation
+Cypress.Commands.add("loginHeadless", () => {
+
+        //login daten als variable ist einfacher zu handeln
+        const userCredentials = {
+            "user": {
+              "email": "artem.bondar16@gmail.com",
+              "password": "CypressTest1"
+            }
+          }
+
+
+          cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+      .its('body').then ( body => {
+        const token = body.user.token;
+        //token müssen wir in alias speichern, damit wir nicht jedes mal das token in dem Testfall neu erzeugen und speichern
+        cy.wrap(token).as('token')
+
+
+        //normale Seite reicht, da wir ja schon eingeloggt sind
+        cy.visit('/', {
+            //wir brauchen Window Object > 
+            onBeforeLoad (win) {
+                win.localStorage.setItem('jwtToken', token)
+            }
+        })
+      })
+})
+
 Cypress.Commands.add('open', () => {
     cy.visit("/")
 })
