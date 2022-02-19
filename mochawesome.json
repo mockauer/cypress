@@ -2,14 +2,14 @@
   "stats": {
     "suites": 2,
     "tests": 2,
-    "passes": 0,
+    "passes": 1,
     "pending": 0,
-    "failures": 2,
-    "start": "2022-02-18T14:59:12.211Z",
-    "end": "2022-02-18T14:59:27.333Z",
-    "duration": 12158,
+    "failures": 1,
+    "start": "2022-02-19T14:03:12.522Z",
+    "end": "2022-02-19T14:03:38.856Z",
+    "duration": 11365,
     "testsRegistered": 2,
-    "passPercent": 0,
+    "passPercent": 50,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "33d43b8f-e98d-4216-8060-67ecbfb59e45",
+      "uuid": "5605663e-c3c4-4028-823f-00b73518e3fa",
       "title": "",
       "fullFile": "cypress/integration/jsonObject.spec.js",
       "file": "cypress/integration/jsonObject.spec.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "55365532-d8b4-403b-b967-5d39426b8838",
+          "uuid": "726af1be-cb93-41ca-b255-3589cb70d910",
           "title": "JSON Object",
           "fullFile": "",
           "file": "",
@@ -38,33 +38,29 @@
               "title": "APIS calls - Headless authorization",
               "fullTitle": "JSON Object APIS calls - Headless authorization",
               "timedOut": null,
-              "duration": 4417,
-              "state": "failed",
-              "speed": null,
-              "pass": false,
-              "fail": true,
+              "duration": 4588,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
               "pending": false,
               "context": null,
               "code": "//login daten als variable ist einfacher zu handeln\nconst userCredentials = {\n  \"user\": {\n    \"email\": \"artem.bondar16@gmail.com\",\n    \"password\": \"CypressTest1\"\n  }\n}; //Body/Eintrags daten als variable ist einfacher zu handeln\nconst bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"TEST API\",\n    \"description\": \"TEST API\",\n    \"body\": \"TEST API\"\n  }\n}; //request anfrage für den Token\n//können wir aufgrund des headless token sparen und refactoren\n// cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)\n// .its('body').then(body => {\ncy.get('@token').then(token => {\n  //second Request for Adding\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200);\n  }); //händische löschen\n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click(); //schauen ob es wirklich gelöscht worden ist, über die API\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    console.log(body); //jetzt muss title nicht gleich dem ersten titel sein\n    expect(body.articles[0].title).not.to.equal('TEST API');\n  });\n});",
-              "err": {
-                "message": "AssertionError: expected 'TEST API' to not equal 'TEST API'",
-                "estack": "AssertionError: expected 'TEST API' to not equal 'TEST API'\n    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress/integration/jsonObject.spec.js:333:47)",
-                "diff": ""
-              },
-              "uuid": "c7b3ea0b-0280-4046-afc0-3e8bf5b29802",
-              "parentUUID": "55365532-d8b4-403b-b967-5d39426b8838",
+              "err": {},
+              "uuid": "7f70713b-03a0-4cc0-932d-51a4908a2cb4",
+              "parentUUID": "726af1be-cb93-41ca-b255-3589cb70d910",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [],
-          "failures": [
-            "c7b3ea0b-0280-4046-afc0-3e8bf5b29802"
+          "passes": [
+            "7f70713b-03a0-4cc0-932d-51a4908a2cb4"
           ],
+          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 4417,
+          "duration": 4588,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -80,7 +76,7 @@
       "_timeout": 2000
     },
     {
-      "uuid": "97dbdc54-bf66-4df4-b8fe-25b2de5e19ac",
+      "uuid": "21c663b0-3b92-4e65-abdf-f279234f4ead",
       "title": "",
       "fullFile": "cypress/integration/fourthTest.spec.js",
       "file": "cypress/integration/fourthTest.spec.js",
@@ -89,7 +85,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "af965d3d-4ede-4937-8fbe-195afe72a24b",
+          "uuid": "1f27da82-5f66-4c66-ace0-0ae26d3388fd",
           "title": "Advanced - NPM Scripte",
           "fullFile": "",
           "file": "",
@@ -100,7 +96,7 @@
               "title": "test for NPM Scripte",
               "fullTitle": "Advanced - NPM Scripte test for NPM Scripte",
               "timedOut": null,
-              "duration": 7741,
+              "duration": 6777,
               "state": "failed",
               "speed": null,
               "pass": false,
@@ -113,8 +109,8 @@
                 "estack": "AssertionError: Timed out retrying after 4000ms: expected '<ul.nav.navbar-nav.pull-xs-right>' to contain 'Sign up1'\n    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress/integration/fourthTest.spec.js:107:27)",
                 "diff": null
               },
-              "uuid": "4bced8a7-a3f1-44d8-9adf-b481f20c4aa5",
-              "parentUUID": "af965d3d-4ede-4937-8fbe-195afe72a24b",
+              "uuid": "4193f6fd-8c5e-4b8b-a879-4ed2db03d6ae",
+              "parentUUID": "1f27da82-5f66-4c66-ace0-0ae26d3388fd",
               "isHook": false,
               "skipped": false
             }
@@ -122,11 +118,11 @@
           "suites": [],
           "passes": [],
           "failures": [
-            "4bced8a7-a3f1-44d8-9adf-b481f20c4aa5"
+            "4193f6fd-8c5e-4b8b-a879-4ed2db03d6ae"
           ],
           "pending": [],
           "skipped": [],
-          "duration": 7741,
+          "duration": 6777,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
