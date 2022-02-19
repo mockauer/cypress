@@ -10,7 +10,7 @@
     "cy:run:chrome": "npm run cypress:run -- --browser chromium",
     "cy:run:firefox": "npm run cypress:run -- --browser firefox",
     "cy:run:pp": "npm run cypress:run -- --browser firefox && npm run cypress:run -- --browser chromium && npm run cypress:run",
-    "cy:run:pp2": "npm run cypress:run --parallel"
+    "cy:run:pp2": "npm run cypress:run --browser firefox --browser chromium --parallel"
   },
   "requires": true,
   "lockfileVersion": 1,
