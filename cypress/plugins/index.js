@@ -16,5 +16,5 @@
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-  require('cypress-plugin-retries/lib/plugin')(on)
+  // require('cypress-plugin-retries/lib/plugin')(on)
 }
