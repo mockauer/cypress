@@ -1,12 +1,16 @@
 {
   "scripts": {
-    "cypress:run": "npx cypress run --spec 'cypress/integration/fourthTest.spec.js,cypress/integration/jsonObject.spec.js'",
+    "cypress:run": "npx cypress run --spec 'cypress/integration/fourthTest.spec.js,cypress/integration/jsonObject.spec.js' --headless",
     "cypress:run2": "npm run prereport && npx cypress run --spec 'cypress/integration/fourthTest.spec.js,cypress/integration/jsonObject.spec.js' && npm run junit:merge && npm run moc:merge",
     "cypress:e2e": "start-test start http-get://localhost:4200 cypress:run",
     "delete:reports": "rm -r cypress/results/* || true",
     "moc:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
     "junit:merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/result.xml",
-    "prereport": "npm run delete:reports"
+    "prereport": "npm run delete:reports",
+    "cy:run:chrome": "npm run cypress:run -- --browser chromium",
+    "cy:run:firefox": "npm run cypress:run -- --browser firefox",
+    "cy:run:pp": "npm run cypress:run -- --browser firefox && npm run cypress:run -- --browser chromium && npm run cypress:run",
+    "cy:run:pp2": "npm run cypress:run --parallel"
   },
   "requires": true,
   "lockfileVersion": 1,
@@ -826,7 +830,6 @@
   "devDependencies": {
     "cypress": "^9.5.0",
     "cypress-multi-reporters": "^1.5.0",
-    "cypress-plugin-retries": "^1.5.2",
     "mocha-junit-reporter": "^2.0.2",
     "mochawesome": "^7.0.1",
     "mochawesome-merge": "^4.2.1",

@@ -1,15 +1,15 @@
 {
   "stats": {
-    "suites": 2,
-    "tests": 2,
-    "passes": 1,
+    "suites": 15,
+    "tests": 15,
+    "passes": 12,
     "pending": 0,
-    "failures": 1,
+    "failures": 3,
     "start": "2022-02-19T14:03:12.522Z",
-    "end": "2022-02-19T14:03:38.856Z",
-    "duration": 11365,
-    "testsRegistered": 2,
-    "passPercent": 50,
+    "end": "2022-02-19T14:22:16.492Z",
+    "duration": 63676,
+    "testsRegistered": 15,
+    "passPercent": 80,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -61,6 +61,768 @@
           "pending": [],
           "skipped": [],
           "duration": 4588,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "3323560a-aa56-44ff-a5d0-bd82eea76285",
+      "title": "",
+      "fullFile": "cypress/integration/fourthTest.spec.js",
+      "file": "cypress/integration/fourthTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "4ddf1c49-71ef-4e8f-938f-6fdb65fa14eb",
+          "title": "Advanced - NPM Scripte",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "test for NPM Scripte",
+              "fullTitle": "Advanced - NPM Scripte test for NPM Scripte",
+              "timedOut": null,
+              "duration": 3215,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Settings').click();\ncy.contains('Or click here to logout').click();\ncy.get('.navbar-nav').should('contain', 'Sign up');",
+              "err": {},
+              "uuid": "85f8a234-9e66-4352-ade4-9511119fe188",
+              "parentUUID": "4ddf1c49-71ef-4e8f-938f-6fdb65fa14eb",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "85f8a234-9e66-4352-ade4-9511119fe188"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3215,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "a77c928e-24c6-4952-a776-91ebed05cf00",
+      "title": "",
+      "fullFile": "cypress/integration/jsonObject.spec.js",
+      "file": "cypress/integration/jsonObject.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "a6807dff-3812-4748-88ae-ba75bcf40383",
+          "title": "JSON Object",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "APIS calls - Headless authorization",
+              "fullTitle": "JSON Object APIS calls - Headless authorization",
+              "timedOut": null,
+              "duration": 3977,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//login daten als variable ist einfacher zu handeln\nconst userCredentials = {\n  \"user\": {\n    \"email\": \"artem.bondar16@gmail.com\",\n    \"password\": \"CypressTest1\"\n  }\n}; //Body/Eintrags daten als variable ist einfacher zu handeln\nconst bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"TEST API\",\n    \"description\": \"TEST API\",\n    \"body\": \"TEST API\"\n  }\n}; //request anfrage für den Token\n//können wir aufgrund des headless token sparen und refactoren\n// cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)\n// .its('body').then(body => {\ncy.get('@token').then(token => {\n  //second Request for Adding\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200);\n  }); //händische löschen\n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click(); //schauen ob es wirklich gelöscht worden ist, über die API\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    console.log(body); //jetzt muss title nicht gleich dem ersten titel sein\n    expect(body.articles[0].title).not.to.equal('TEST API');\n  });\n});",
+              "err": {},
+              "uuid": "9dae5c76-82af-4c33-8c39-0690962c91ec",
+              "parentUUID": "a6807dff-3812-4748-88ae-ba75bcf40383",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "9dae5c76-82af-4c33-8c39-0690962c91ec"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3977,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "1e845600-f3d4-467e-9a79-868f056f6c3e",
+      "title": "",
+      "fullFile": "cypress/integration/fourthTest.spec.js",
+      "file": "cypress/integration/fourthTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "225884e8-ce9e-4ee9-9912-701103ee4d7d",
+          "title": "Advanced - NPM Scripte",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "test for NPM Scripte",
+              "fullTitle": "Advanced - NPM Scripte test for NPM Scripte",
+              "timedOut": null,
+              "duration": 3494,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Settings').click();\ncy.contains('Or click here to logout').click();\ncy.get('.navbar-nav').should('contain', 'Sign up');",
+              "err": {},
+              "uuid": "15880adb-261b-429b-80cc-06537eb96d75",
+              "parentUUID": "225884e8-ce9e-4ee9-9912-701103ee4d7d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "15880adb-261b-429b-80cc-06537eb96d75"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3494,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "653665c9-bc36-4f4d-be91-a318b1993632",
+      "title": "",
+      "fullFile": "cypress/integration/jsonObject.spec.js",
+      "file": "cypress/integration/jsonObject.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "b5af0027-8445-4e02-b5ee-9b084f2f6604",
+          "title": "JSON Object",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "APIS calls - Headless authorization",
+              "fullTitle": "JSON Object APIS calls - Headless authorization",
+              "timedOut": null,
+              "duration": 3495,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//login daten als variable ist einfacher zu handeln\nconst userCredentials = {\n  \"user\": {\n    \"email\": \"artem.bondar16@gmail.com\",\n    \"password\": \"CypressTest1\"\n  }\n}; //Body/Eintrags daten als variable ist einfacher zu handeln\nconst bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"TEST API\",\n    \"description\": \"TEST API\",\n    \"body\": \"TEST API\"\n  }\n}; //request anfrage für den Token\n//können wir aufgrund des headless token sparen und refactoren\n// cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)\n// .its('body').then(body => {\ncy.get('@token').then(token => {\n  //second Request for Adding\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200);\n  }); //händische löschen\n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click(); //schauen ob es wirklich gelöscht worden ist, über die API\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    console.log(body); //jetzt muss title nicht gleich dem ersten titel sein\n    expect(body.articles[0].title).not.to.equal('TEST API');\n  });\n});",
+              "err": {},
+              "uuid": "9f1834f5-c8c3-48cc-a0b7-5358f430eb74",
+              "parentUUID": "b5af0027-8445-4e02-b5ee-9b084f2f6604",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "9f1834f5-c8c3-48cc-a0b7-5358f430eb74"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3495,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "39cb6527-0b54-4aa2-9924-6cffceb2990c",
+      "title": "",
+      "fullFile": "cypress/integration/fourthTest.spec.js",
+      "file": "cypress/integration/fourthTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0ea4bbdb-85fe-43a1-bf3d-9d3382441d2b",
+          "title": "Advanced - NPM Scripte",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "test for NPM Scripte",
+              "fullTitle": "Advanced - NPM Scripte test for NPM Scripte",
+              "timedOut": null,
+              "duration": 5678,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Settings').click();\ncy.contains('Or click here to logout').click();\ncy.get('.navbar-nav').should('contain', 'Sign up');",
+              "err": {},
+              "uuid": "2ba0df0e-dd54-4e3b-a820-938ebad1667c",
+              "parentUUID": "0ea4bbdb-85fe-43a1-bf3d-9d3382441d2b",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "2ba0df0e-dd54-4e3b-a820-938ebad1667c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5678,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "e3902122-4ae3-4bcb-8cb9-abfc2363991c",
+      "title": "",
+      "fullFile": "cypress/integration/jsonObject.spec.js",
+      "file": "cypress/integration/jsonObject.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c098c748-7fd7-4909-8994-feb2178db27b",
+          "title": "JSON Object",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "APIS calls - Headless authorization",
+              "fullTitle": "JSON Object APIS calls - Headless authorization",
+              "timedOut": null,
+              "duration": 6007,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//login daten als variable ist einfacher zu handeln\nconst userCredentials = {\n  \"user\": {\n    \"email\": \"artem.bondar16@gmail.com\",\n    \"password\": \"CypressTest1\"\n  }\n}; //Body/Eintrags daten als variable ist einfacher zu handeln\nconst bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"TEST API\",\n    \"description\": \"TEST API\",\n    \"body\": \"TEST API\"\n  }\n}; //request anfrage für den Token\n//können wir aufgrund des headless token sparen und refactoren\n// cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)\n// .its('body').then(body => {\ncy.get('@token').then(token => {\n  //second Request for Adding\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200);\n  }); //händische löschen\n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click(); //schauen ob es wirklich gelöscht worden ist, über die API\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    console.log(body); //jetzt muss title nicht gleich dem ersten titel sein\n    expect(body.articles[0].title).not.to.equal('TEST API');\n  });\n});",
+              "err": {},
+              "uuid": "7b1cd4b6-59f4-466b-9b57-5d20d32cda82",
+              "parentUUID": "c098c748-7fd7-4909-8994-feb2178db27b",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "7b1cd4b6-59f4-466b-9b57-5d20d32cda82"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 6007,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "225ce8f8-9c15-4e1a-80e1-b8e77df75ada",
+      "title": "",
+      "fullFile": "cypress/integration/fourthTest.spec.js",
+      "file": "cypress/integration/fourthTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "d23a62a6-60ab-4acf-99e6-439e964f0872",
+          "title": "Advanced - NPM Scripte",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "test for NPM Scripte",
+              "fullTitle": "Advanced - NPM Scripte test for NPM Scripte",
+              "timedOut": null,
+              "duration": 3949,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Settings').click();\ncy.contains('Or click here to logout').click();\ncy.get('.navbar-nav').should('contain', 'Sign up');",
+              "err": {},
+              "uuid": "b492ad19-bfa3-4607-9ab5-f12b8dce1c45",
+              "parentUUID": "d23a62a6-60ab-4acf-99e6-439e964f0872",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b492ad19-bfa3-4607-9ab5-f12b8dce1c45"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3949,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "21e04b69-8473-430d-ae15-f8691abb7d73",
+      "title": "",
+      "fullFile": "cypress/integration/jsonObject.spec.js",
+      "file": "cypress/integration/jsonObject.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1414edc2-979b-430b-995f-8b11f82d84fd",
+          "title": "JSON Object",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "APIS calls - Headless authorization",
+              "fullTitle": "JSON Object APIS calls - Headless authorization",
+              "timedOut": null,
+              "duration": 6808,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "//login daten als variable ist einfacher zu handeln\nconst userCredentials = {\n  \"user\": {\n    \"email\": \"artem.bondar16@gmail.com\",\n    \"password\": \"CypressTest1\"\n  }\n}; //Body/Eintrags daten als variable ist einfacher zu handeln\nconst bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"TEST API\",\n    \"description\": \"TEST API\",\n    \"body\": \"TEST API\"\n  }\n}; //request anfrage für den Token\n//können wir aufgrund des headless token sparen und refactoren\n// cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)\n// .its('body').then(body => {\ncy.get('@token').then(token => {\n  //second Request for Adding\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200);\n  }); //händische löschen\n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click(); //schauen ob es wirklich gelöscht worden ist, über die API\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    console.log(body); //jetzt muss title nicht gleich dem ersten titel sein\n    expect(body.articles[0].title).not.to.equal('TEST API');\n  });\n});",
+              "err": {
+                "message": "AssertionError: expected 'TEST API' to not equal 'TEST API'",
+                "estack": "AssertionError: expected 'TEST API' to not equal 'TEST API'\n    ./cypress/integration/jsonObject.spec.js/</</</<@http://localhost:4200/__cypress/tests?p=cypress/integration/jsonObject.spec.js:333:47\n    getRet@http://localhost:4200/__cypress/runner/cypress_runner.js:156226:20\n    tryCatcher@http://localhost:4200/__cypress/runner/cypress_runner.js:13022:23\n    ../../node_modules/bluebird/js/release/method.js/module.exports/Promise.try@http://localhost:4200/__cypress/runner/cypress_runner.js:10296:29\n    thenFn@http://localhost:4200/__cypress/runner/cypress_runner.js:156244:60\n    then@http://localhost:4200/__cypress/runner/cypress_runner.js:156696:21\n    ../driver/src/cypress/cy.ts/addCommand/wrapByType/<@http://localhost:4200/__cypress/runner/cypress_runner.js:173141:19\n    ../driver/src/cypress/command_queue.ts/runCommand/<@http://localhost:4200/__cypress/runner/cypress_runner.js:171997:15\n    tryCatcher@http://localhost:4200/__cypress/runner/cypress_runner.js:13022:23\n    ../../node_modules/bluebird/js/release/promise.js/</module.exports/Promise.prototype._settlePromiseFromHandler@http://localhost:4200/__cypress/runner/cypress_runner.js:10957:31\n    ../../node_modules/bluebird/js/release/promise.js/</module.exports/Promise.prototype._settlePromise@http://localhost:4200/__cypress/runner/cypress_runner.js:11014:18\n    ../../node_modules/bluebird/js/release/promise.js/</module.exports/Promise.prototype._settlePromiseCtx@http://localhost:4200/__cypress/runner/cypress_runner.js:11051:10\n    _drainQueueStep@http://localhost:4200/__cypress/runner/cypress_runner.js:7733:12\n    _drainQueue@http://localhost:4200/__cypress/runner/cypress_runner.js:7722:24\n    ../../node_modules/bluebird/js/release/async.js/</Async.prototype._drainQueues@http://localhost:4200/__cypress/runner/cypress_runner.js:7738:16\n    ../../node_modules/bluebird/js/release/async.js/</Async/this.drainQueues@http://localhost:4200/__cypress/runner/cypress_runner.js:7608:14\n",
+                "diff": ""
+              },
+              "uuid": "151740c5-57d2-4dfe-882e-58c6c96721ce",
+              "parentUUID": "1414edc2-979b-430b-995f-8b11f82d84fd",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "151740c5-57d2-4dfe-882e-58c6c96721ce"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 6808,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "bdf3d651-9c46-43ac-be6f-d217ea9828d3",
+      "title": "",
+      "fullFile": "cypress/integration/fourthTest.spec.js",
+      "file": "cypress/integration/fourthTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1cb5d9a4-f75e-4458-a06e-b21907b3b131",
+          "title": "Advanced - NPM Scripte",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "test for NPM Scripte",
+              "fullTitle": "Advanced - NPM Scripte test for NPM Scripte",
+              "timedOut": null,
+              "duration": 3201,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Settings').click();\ncy.contains('Or click here to logout').click();\ncy.get('.navbar-nav').should('contain', 'Sign up');",
+              "err": {},
+              "uuid": "5c9a3651-a422-4fe6-aaf6-7fae2e8c52a2",
+              "parentUUID": "1cb5d9a4-f75e-4458-a06e-b21907b3b131",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "5c9a3651-a422-4fe6-aaf6-7fae2e8c52a2"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3201,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "e9dd9fe0-85ef-4c1a-90de-e2bf32056d4e",
+      "title": "",
+      "fullFile": "cypress/integration/fourthTest.spec.js",
+      "file": "cypress/integration/fourthTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "277c97c8-c2a6-4533-8894-6152fca51ea6",
+          "title": "Advanced - NPM Scripte",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "test for NPM Scripte",
+              "fullTitle": "Advanced - NPM Scripte test for NPM Scripte",
+              "timedOut": null,
+              "duration": 3118,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Settings').click();\ncy.contains('Or click here to logout').click();\ncy.get('.navbar-nav').should('contain', 'Sign up');",
+              "err": {},
+              "uuid": "ac77f63c-ab9c-4527-98a3-fed754defb4c",
+              "parentUUID": "277c97c8-c2a6-4533-8894-6152fca51ea6",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "ac77f63c-ab9c-4527-98a3-fed754defb4c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3118,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "8f61517e-e7b7-4771-a5e6-4be4f06619c2",
+      "title": "",
+      "fullFile": "cypress/integration/jsonObject.spec.js",
+      "file": "cypress/integration/jsonObject.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "3300167d-fae8-4e63-97fd-ff50f545dd60",
+          "title": "JSON Object",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "APIS calls - Headless authorization",
+              "fullTitle": "JSON Object APIS calls - Headless authorization",
+              "timedOut": null,
+              "duration": 1277,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "//login daten als variable ist einfacher zu handeln\nconst userCredentials = {\n  \"user\": {\n    \"email\": \"artem.bondar16@gmail.com\",\n    \"password\": \"CypressTest1\"\n  }\n}; //Body/Eintrags daten als variable ist einfacher zu handeln\nconst bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"TEST API\",\n    \"description\": \"TEST API\",\n    \"body\": \"TEST API\"\n  }\n}; //request anfrage für den Token\n//können wir aufgrund des headless token sparen und refactoren\n// cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)\n// .its('body').then(body => {\ncy.get('@token').then(token => {\n  //second Request for Adding\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200);\n  }); //händische löschen\n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click(); //schauen ob es wirklich gelöscht worden ist, über die API\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    console.log(body); //jetzt muss title nicht gleich dem ersten titel sein\n    expect(body.articles[0].title).not.to.equal('TEST API');\n  });\n});",
+              "err": {
+                "message": "CypressError: `cy.request()` failed on:\n\nhttps://conduit.productionready.io//api/articles/\n\nThe response we received from your web server was:\n\n  > 422: Unprocessable Entity\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://conduit.productionready.io//api/articles/\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGVtLmJvbmRhcjE2QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiYXJ0ZW0iLCJwYXNzd29yZCI6IiQyYSQxMCRtSks0Tkp4MGs1RnhFd2tvcFVKNFJPdTFqclB4b05QUmpNbHhCMlBBTjQwR2UwdHdXcllRLiIsImJpbyI6bnVsbCwiaW1hZ2UiOiJodHRwczovL2FwaS5yZWFsd29ybGQuaW8vaW1hZ2VzL3NtaWxleS1jeXJ1cy5qcGVnIiwiaWF0IjoxNjQ1MjgwNDY3LCJleHAiOjE2NTA0NjQ0Njd9.0FPCy2sKp85EcnFqTwlJghAx2sTBwIIZEZASJWSloOE\",\n  \"user-agent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/9.5.0 Chrome/94.0.4606.81 Electron/15.3.4 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 88,\n  \"referer\": \"https://conduit.productionready.io//api/articles/\"\n}\nBody: {\"article\":{\"tagList\":[],\"title\":\"TEST API\",\"description\":\"TEST API\",\"body\":\"TEST API\"}}\nRedirects: [\n  \"307: https://api.realworld.io/api/articles/\"\n]\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 422 - Unprocessable Entity\nHeaders: {\n  \"date\": \"Sat, 19 Feb 2022 14:21:07 GMT\",\n  \"content-type\": \"application/json; charset=utf-8\",\n  \"content-length\": \"39\",\n  \"connection\": \"keep-alive\",\n  \"x-powered-by\": \"Express\",\n  \"access-control-allow-origin\": \"*\",\n  \"etag\": \"W/\\\"27-BNeuaWQ7DHvW/r+pl+qdJiF06Is\\\"\",\n  \"via\": \"1.1 vegur\",\n  \"cf-cache-status\": \"DYNAMIC\",\n  \"expect-ct\": \"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\n  \"report-to\": \"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=%2B8rHS0dMONkU34dYLmLg70uK0UfIPVJSaxwHlGe4TvW3cLj0rd9UwtBC3VLRw%2FQb%2BD99epQo0fde0CzzfVpbgkoHAlrc694rDy0r0WU5huivIAv5cXgAnWwxir0mpQl8HpOY\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"nel\": \"{\\\"success_fraction\\\":0,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"server\": \"cloudflare\",\n  \"cf-ray\": \"6e0023cb2a8bfa80-AMS\",\n  \"alt-svc\": \"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\"\n}\nBody: {\n  \"errors\": {\n    \"title\": [\n      \"must be unique\"\n    ]\n  }\n}\n\n\nhttps://on.cypress.io/request",
+                "estack": "CypressError: `cy.request()` failed on:\n\nhttps://conduit.productionready.io//api/articles/\n\nThe response we received from your web server was:\n\n  > 422: Unprocessable Entity\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://conduit.productionready.io//api/articles/\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGVtLmJvbmRhcjE2QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiYXJ0ZW0iLCJwYXNzd29yZCI6IiQyYSQxMCRtSks0Tkp4MGs1RnhFd2tvcFVKNFJPdTFqclB4b05QUmpNbHhCMlBBTjQwR2UwdHdXcllRLiIsImJpbyI6bnVsbCwiaW1hZ2UiOiJodHRwczovL2FwaS5yZWFsd29ybGQuaW8vaW1hZ2VzL3NtaWxleS1jeXJ1cy5qcGVnIiwiaWF0IjoxNjQ1MjgwNDY3LCJleHAiOjE2NTA0NjQ0Njd9.0FPCy2sKp85EcnFqTwlJghAx2sTBwIIZEZASJWSloOE\",\n  \"user-agent\": \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/9.5.0 Chrome/94.0.4606.81 Electron/15.3.4 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 88,\n  \"referer\": \"https://conduit.productionready.io//api/articles/\"\n}\nBody: {\"article\":{\"tagList\":[],\"title\":\"TEST API\",\"description\":\"TEST API\",\"body\":\"TEST API\"}}\nRedirects: [\n  \"307: https://api.realworld.io/api/articles/\"\n]\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 422 - Unprocessable Entity\nHeaders: {\n  \"date\": \"Sat, 19 Feb 2022 14:21:07 GMT\",\n  \"content-type\": \"application/json; charset=utf-8\",\n  \"content-length\": \"39\",\n  \"connection\": \"keep-alive\",\n  \"x-powered-by\": \"Express\",\n  \"access-control-allow-origin\": \"*\",\n  \"etag\": \"W/\\\"27-BNeuaWQ7DHvW/r+pl+qdJiF06Is\\\"\",\n  \"via\": \"1.1 vegur\",\n  \"cf-cache-status\": \"DYNAMIC\",\n  \"expect-ct\": \"max-age=604800, report-uri=\\\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\\\"\",\n  \"report-to\": \"{\\\"endpoints\\\":[{\\\"url\\\":\\\"https:\\\\/\\\\/a.nel.cloudflare.com\\\\/report\\\\/v3?s=%2B8rHS0dMONkU34dYLmLg70uK0UfIPVJSaxwHlGe4TvW3cLj0rd9UwtBC3VLRw%2FQb%2BD99epQo0fde0CzzfVpbgkoHAlrc694rDy0r0WU5huivIAv5cXgAnWwxir0mpQl8HpOY\\\"}],\\\"group\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"nel\": \"{\\\"success_fraction\\\":0,\\\"report_to\\\":\\\"cf-nel\\\",\\\"max_age\\\":604800}\",\n  \"server\": \"cloudflare\",\n  \"cf-ray\": \"6e0023cb2a8bfa80-AMS\",\n  \"alt-svc\": \"h3=\\\":443\\\"; ma=86400, h3-29=\\\":443\\\"; ma=86400\"\n}\nBody: {\n  \"errors\": {\n    \"title\": [\n      \"must be unique\"\n    ]\n  }\n}\n\n\nhttps://on.cypress.io/request\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:160593:80\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:13022:23)\n    at Promise._settlePromiseFromHandler (http://localhost:4200/__cypress/runner/cypress_runner.js:10957:31)\n    at Promise._settlePromise (http://localhost:4200/__cypress/runner/cypress_runner.js:11014:18)\n    at Promise._settlePromise0 (http://localhost:4200/__cypress/runner/cypress_runner.js:11059:10)\n    at Promise._settlePromises (http://localhost:4200/__cypress/runner/cypress_runner.js:11139:18)\n    at _drainQueueStep (http://localhost:4200/__cypress/runner/cypress_runner.js:7729:12)\n    at _drainQueue (http://localhost:4200/__cypress/runner/cypress_runner.js:7722:9)\n    at Async.../../node_modules/bluebird/js/release/async.js.Async._drainQueues (http://localhost:4200/__cypress/runner/cypress_runner.js:7738:5)\n    at Async.drainQueues (http://localhost:4200/__cypress/runner/cypress_runner.js:7608:14)\nFrom Your Spec Code:\n    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress/integration/jsonObject.spec.js:309:10)",
+                "diff": null
+              },
+              "uuid": "8826920c-1166-4071-9743-6f359396bfef",
+              "parentUUID": "3300167d-fae8-4e63-97fd-ff50f545dd60",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "8826920c-1166-4071-9743-6f359396bfef"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1277,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "85fde0a9-9c82-43fd-9b53-d71bc02fff21",
+      "title": "",
+      "fullFile": "cypress/integration/fourthTest.spec.js",
+      "file": "cypress/integration/fourthTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ca0ee724-68bc-4d9a-89dd-c695ee9e4a14",
+          "title": "Advanced - NPM Scripte",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "test for NPM Scripte",
+              "fullTitle": "Advanced - NPM Scripte test for NPM Scripte",
+              "timedOut": null,
+              "duration": 4945,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Settings').click();\ncy.contains('Or click here to logout').click();\ncy.get('.navbar-nav').should('contain', 'Sign up');",
+              "err": {},
+              "uuid": "b7b52b61-9d52-4d20-b8f6-2aa5f045794e",
+              "parentUUID": "ca0ee724-68bc-4d9a-89dd-c695ee9e4a14",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b7b52b61-9d52-4d20-b8f6-2aa5f045794e"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 4945,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "7a12e3df-4af5-4559-a82d-798e6b5e6ba5",
+      "title": "",
+      "fullFile": "cypress/integration/jsonObject.spec.js",
+      "file": "cypress/integration/jsonObject.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "21209c97-3c51-4146-8a91-48fbbcd4cdc4",
+          "title": "JSON Object",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "APIS calls - Headless authorization",
+              "fullTitle": "JSON Object APIS calls - Headless authorization",
+              "timedOut": null,
+              "duration": 3147,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "//login daten als variable ist einfacher zu handeln\nconst userCredentials = {\n  \"user\": {\n    \"email\": \"artem.bondar16@gmail.com\",\n    \"password\": \"CypressTest1\"\n  }\n}; //Body/Eintrags daten als variable ist einfacher zu handeln\nconst bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"TEST API\",\n    \"description\": \"TEST API\",\n    \"body\": \"TEST API\"\n  }\n}; //request anfrage für den Token\n//können wir aufgrund des headless token sparen und refactoren\n// cy.request('POST', Cypress.env('apiUrl')+'/api/users/login', userCredentials)\n// .its('body').then(body => {\ncy.get('@token').then(token => {\n  //second Request for Adding\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200);\n  }); //händische löschen\n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click(); //schauen ob es wirklich gelöscht worden ist, über die API\n  cy.request({\n    url: Cypress.env('apiUrl') + '/api/articles/?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    console.log(body); //jetzt muss title nicht gleich dem ersten titel sein\n    expect(body.articles[0].title).not.to.equal('TEST API');\n  });\n});",
+              "err": {},
+              "uuid": "7b03a15a-36f0-466b-946c-8d4bcc8d92e5",
+              "parentUUID": "21209c97-3c51-4146-8a91-48fbbcd4cdc4",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "7b03a15a-36f0-466b-946c-8d4bcc8d92e5"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3147,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
