@@ -4,3 +4,4 @@
 *results
 *mochawesome-report
 mochawesome.json
+cypress/integration/__image_snapshots__
